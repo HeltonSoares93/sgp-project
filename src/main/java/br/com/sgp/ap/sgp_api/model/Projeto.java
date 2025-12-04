@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "tb_projeto")
 public class Projeto {
 
     @Id

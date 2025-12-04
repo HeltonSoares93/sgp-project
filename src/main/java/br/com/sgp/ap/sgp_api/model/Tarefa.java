@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Table(name = "tb_tarefas")
 public class Tarefa {
 
     @Id
