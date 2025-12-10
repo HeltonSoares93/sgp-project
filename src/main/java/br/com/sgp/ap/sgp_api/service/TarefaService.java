@@ -16,15 +16,15 @@ public class TarefaService {
   @Autowired
   private TarefaRepository tarefaRepository;
 
-  public Tarefa salvaProjeto(Tarefa tarefa) {
+  public Tarefa salvaTarefa(Tarefa tarefa) {
     return tarefaRepository.save(tarefa);
   }
 
-  public List<Tarefa> consultarProjetos() {
+  public List<Tarefa> consultarTarefas() {
     return tarefaRepository.findAll();
   }
 
-  public Optional<Tarefa> consultarTarefaId(Long id) {
+  public Optional<Tarefa> consultarTarefaPorId(Long id) {
     return tarefaRepository.findById(id);
   }
 

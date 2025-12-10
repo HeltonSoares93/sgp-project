@@ -1,12 +1,19 @@
 package br.com.sgp.ap.sgp_api.model;
 
+import java.time.LocalDate;
+
 import br.com.sgp.ap.sgp_api.enums.ProjetoStatusEnum;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
 
 @Data
 @Entity
@@ -33,5 +40,9 @@ public class Projeto {
 
     @Column(nullable = false)
     private ProjetoStatusEnum status;
+
+    @ManyToOne
+    @JoinColumn(nullable=false) // o JoinColumn é o @Column do model/entidade
+    private Usuario responsavel;
 
 }

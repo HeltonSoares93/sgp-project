@@ -75,7 +75,6 @@ public class UsuarioController {
         if (usuarioExistente.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-
         return ResponseEntity.ok().body(usuarioExistente.get());
     }
 
