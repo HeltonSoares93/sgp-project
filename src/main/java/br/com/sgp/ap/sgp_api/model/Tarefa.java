@@ -6,6 +6,8 @@ import br.com.sgp.ap.sgp_api.enums.TarefaPrioridadeEnum;
 import br.com.sgp.ap.sgp_api.enums.TarefaStatusEnum;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -38,9 +40,11 @@ public class Tarefa {
     private LocalDate dataConclusao;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TarefaPrioridadeEnum prioridade;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private TarefaStatusEnum status;
 
     @ManyToOne

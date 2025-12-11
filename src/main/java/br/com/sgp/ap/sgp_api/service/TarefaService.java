@@ -7,6 +7,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.sgp.ap.sgp_api.enums.TarefaPrioridadeEnum;
+import br.com.sgp.ap.sgp_api.enums.TarefaStatusEnum;
 import br.com.sgp.ap.sgp_api.model.Tarefa;
 import br.com.sgp.ap.sgp_api.repository.TarefaRepository;
 
@@ -32,8 +34,12 @@ public class TarefaService {
     tarefaRepository.deleteById(id);
   }
 
-  public List<Tarefa> consultarTarefaStatus(String status) {
+  public List<Tarefa> consultarTarefaStatus(TarefaStatusEnum status) {
     return tarefaRepository.findByStatus(status);
+  }
+
+  public List<Tarefa> consultarTarefaPrioridade(TarefaPrioridadeEnum prioridade) {
+    return tarefaRepository.findByPrioridade(prioridade);
   }
 
   public List<Tarefa> consultarPorDataConclusao(LocalDate dataConclusao) {

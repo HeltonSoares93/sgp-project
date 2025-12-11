@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import br.com.sgp.ap.sgp_api.enums.TarefaPrioridadeEnum;
+import br.com.sgp.ap.sgp_api.enums.TarefaStatusEnum;
 import br.com.sgp.ap.sgp_api.model.Tarefa;
 
 @Repository
@@ -13,8 +15,8 @@ public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
 
   List<Tarefa> findByDataConclusao(LocalDate dataConclusao);
 
-  List<Tarefa> findByPrioridade(String prioridade);
+  List<Tarefa> findByPrioridade(TarefaPrioridadeEnum prioridade);
 
-  List<Tarefa> findByStatus(String status);
+  List<Tarefa> findByStatus(TarefaStatusEnum status);
 
 }

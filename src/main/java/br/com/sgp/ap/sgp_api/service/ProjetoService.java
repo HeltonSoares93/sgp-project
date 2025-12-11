@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.sgp.ap.sgp_api.enums.ProjetoStatusEnum;
 import br.com.sgp.ap.sgp_api.model.Projeto;
 import br.com.sgp.ap.sgp_api.repository.ProjetoRepository;
 
@@ -32,12 +33,14 @@ public class ProjetoService {
     projetoRepository.deleteById(id);
   }
 
-  public List<Projeto> consultarProjetoStatus(String status) {
+  public List<Projeto> consultarProjetoStatus(ProjetoStatusEnum status) {
     return projetoRepository.findByStatus(status);
   }
 
   public List<Projeto> consultarPorDataConclusao(LocalDate dataConclusao) {
     return projetoRepository.findByDataConclusao(dataConclusao);
   }
+
+  
 
 }
