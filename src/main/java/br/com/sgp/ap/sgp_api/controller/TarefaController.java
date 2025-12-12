@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sgp.ap.sgp_api.enums.TarefaPrioridadeEnum;
 import br.com.sgp.ap.sgp_api.enums.TarefaStatusEnum;
+import br.com.sgp.ap.sgp_api.model.Projeto;
 import br.com.sgp.ap.sgp_api.model.Tarefa;
 import br.com.sgp.ap.sgp_api.service.TarefaService;
 
@@ -85,6 +86,18 @@ public class TarefaController {
     }
 
     return ResponseEntity.ok().body(service.consultarTarefaPrioridade(prioridade));
+  }
+
+  // atualização 12 de dezembro de 2025 - busca de tarefas por agrupamento de
+  // projetos
+  @GetMapping("/buscar-projeto")
+  public ResponseEntity<List<Tarefa>> consultarTarefaPorProjeto(@RequestParam("idProjeto") Long idProjeto) {
+    Optional<Projeto> projetoExistente = service.buscarProjetoPorId(idProjeto);
+    if (projetoExistente.isEmpty()) {
+      return ResponseEntity.noContent().build();
+    }
+    List<Tarefa> tarefas = service.buscarTarefaPorProjeto(projetoExistente.get());
+    return ResponseEntity.ok().body(tarefas);
   }
 
 }
