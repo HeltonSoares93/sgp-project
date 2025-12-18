@@ -14,12 +14,18 @@ import lombok.NoArgsConstructor;
 public class UsuarioDTO {
 
   private Long id;
+
   private String nome;
+
   private String email;
+
   private String cpf;
+
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate dataNascimento;
+
   private Integer idade;
+
   private String status;
 
 }

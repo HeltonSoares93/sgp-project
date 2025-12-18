@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import br.com.sgp.ap.sgp_api.enums.UsuarioStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +31,7 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     // @NotBlank somente para strings, @NotNull para os demais casos
     @NotBlank // não pode estar em branco
     @Column(nullable = false)
@@ -62,6 +64,7 @@ public class Usuario {
     private List<Tarefa> tarefas;
 
     @OneToMany(mappedBy = "responsavel", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Projeto> projetos;
 
 }
