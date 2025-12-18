@@ -1,6 +1,7 @@
 package br.com.sgp.ap.sgp_api.controller;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.sgp.ap.sgp_api.dto.UsuarioDTO;
 import br.com.sgp.ap.sgp_api.model.Usuario;
 import br.com.sgp.ap.sgp_api.service.UsuarioService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -27,8 +30,8 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
     @GetMapping(value = "/{id}")
-    public Optional<Usuario> buscarUsuarioPeloId(@PathVariable("id") Long id) {
-        return usuarioService.consultarUsuarioId(id);
+    public ResponseEntity<UsuarioDTO> buscarUsuarioPeloId(@PathVariable("id") Long id) {
+        return ResponseEntity.ok().body(usuarioService.consultarUsuarioId(id));
     }
 
     @GetMapping
@@ -36,17 +39,18 @@ public class UsuarioController {
         return usuarioService.consultarUsuarios();
     }
 
+    // @Valid -> validação do usuário
     @PostMapping
-    public ResponseEntity<Usuario> cadastrarUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<Usuario> cadastrarUsuario(@Valid @RequestBody Usuario usuario) {
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.salvarUsuario(usuario));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<Usuario> atualizarUsuario(@PathVariable Long id, @RequestBody Usuario usuario) {
 
-        Optional<Usuario> usuarioExistente = usuarioService.consultarUsuarioId(id);
+        UsuarioDTO usuarioExistente = usuarioService.consultarUsuarioId(id);
 
-        if (usuarioExistente.isEmpty()) {
+        if (Objects.isNull(usuarioExistente)) {
             return ResponseEntity.notFound().build();
         }
 
@@ -57,8 +61,8 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluirUsuario(@PathVariable Long id) {
-        Optional<Usuario> usuarioExistente = usuarioService.consultarUsuarioId(id);
-        if (usuarioExistente.isEmpty()) {
+        UsuarioDTO usuarioExistente = usuarioService.consultarUsuarioId(id);
+        if (Objects.isNull(id)) {
             return ResponseEntity.notFound().build();
         }
 

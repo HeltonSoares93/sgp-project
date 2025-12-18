@@ -1,8 +1,10 @@
 package br.com.sgp.ap.sgp_api.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import br.com.sgp.ap.sgp_api.enums.ProjetoStatusEnum;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,7 +48,10 @@ public class Projeto {
     private ProjetoStatusEnum status;
 
     @ManyToOne
-    @JoinColumn(nullable=false) // o JoinColumn é o @Column do model/entidade
+    @JoinColumn(nullable = false) // o JoinColumn é o @Column do model/entidade
     private Usuario responsavel;
+
+    @OneToMany(mappedBy = "projeto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Tarefa> tarefas;
 
 }
