@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.sgp.ap.sgp_api.dto.UsuarioDTO;
+import br.com.sgp.ap.sgp_api.exception.UsuarioNaoEncontradoException;
 import br.com.sgp.ap.sgp_api.model.Usuario;
 import br.com.sgp.ap.sgp_api.service.UsuarioService;
 import jakarta.validation.Valid;
@@ -31,6 +32,13 @@ public class UsuarioController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<UsuarioDTO> buscarUsuarioPeloId(@PathVariable("id") Long id) {
+
+        UsuarioDTO usuarioExiste = usuarioService.consultarUsuarioId(id);
+
+        if (Objects.isNull(usuarioExiste)) {
+            throw new UsuarioNaoEncontradoException(id);
+        }
+
         return ResponseEntity.ok().body(usuarioService.consultarUsuarioId(id));
     }
 

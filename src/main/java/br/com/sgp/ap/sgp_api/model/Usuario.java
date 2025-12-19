@@ -3,8 +3,9 @@ package br.com.sgp.ap.sgp_api.model;
 import java.time.LocalDate;
 import java.util.List;
 
-import br.com.sgp.ap.sgp_api.enums.UsuarioStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import br.com.sgp.ap.sgp_api.enums.UsuarioStatus;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -31,22 +32,22 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     // @NotBlank somente para strings, @NotNull para os demais casos
-    @NotBlank // não pode estar em branco
+    @NotBlank(message = "O campo 'nome' é obrigatório") // não pode estar em branco
     @Column(nullable = false)
     private String nome;
 
-    @NotBlank
-    @Column(nullable = false, unique = true)
+    @NotBlank(message = "O campo 'cpf' é obrigatório e deve ser único") // validação a nível de requisição
+    @Column(nullable = false, unique = true) // validação a nível de banco de dados
     private String cpf;
 
-    @NotBlank
+    @NotBlank(message = "O campo 'email' é obrigatório")
     @Email
     @Column(nullable = false, unique = true)
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "O campo 'senha' é obrigatório e com máx de 19 caracteres")
     @Size(max = 19)
     @Column(nullable = false, length = 19)
     private String senha;
